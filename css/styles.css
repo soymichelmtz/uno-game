@@ -1,0 +1,108 @@
+/* Estilos básicos para una mesa de juego simple */
+:root{
+  --red:#e74c3c;
+  --yellow:#f1c40f;
+  --green:#27ae60;
+  --blue:#3498db;
+  --bg:#0b1321;
+  --panel:#151f33;
+  --text:#e8eefc;
+  --muted:#a9b4d0;
+}
+/* Tema claro */
+.theme-light{
+  --bg:#f5f7ff;
+  --panel:#e9eefc;
+  --text:#0e1a33;
+  --muted:#5a6a8c;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(135deg,#0b1321,#1a2a4a);color:var(--text);min-height:100vh;}
+.theme-light body{background:linear-gradient(135deg,#eaefff,#d6e0ff);}
+.app-header,.app-footer{padding:12px 16px;background:rgba(0,0,0,.25);backdrop-filter: blur(6px);display:flex;align-items:center;gap:16px;justify-content:space-between}
+.app-header h1{margin:0;font-size:20px}
+.controls{display:flex;align-items:center;gap:10px}
+.controls input{width:56px;padding:6px;border-radius:6px;border:1px solid #324264;background:#0f1a2e;color:var(--text)}
+.controls button{padding:8px 12px;border-radius:8px;border:0;background:#2d6cdf;color:#fff;cursor:pointer}
+.controls #settingsBtn{background:#3b3f58}
+.controls .hint{color:var(--muted);font-size:12px}
+
+.table{display:grid;grid-template-rows:auto 1fr auto;gap:16px;padding:16px}
+.opponents{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.opponent{background:var(--panel);padding:10px;border-radius:12px;min-width:160px;display:flex;flex-direction:column;gap:6px}
+.opponent .name{font-weight:600}
+.opponent .cards{display:flex;gap:6px;flex-wrap:wrap}
+.card.back{background:#111;color:#888;border:2px solid #333}
+
+.center{display:flex;gap:24px;align-items:center;justify-content:center;flex-wrap:wrap}
+.pile{position:relative;width:120px;height:160px;border-radius:12px;background:#0f1a2e;border:2px solid #2a3b6a;display:flex;align-items:center;justify-content:center}
+.pile .card{position:absolute;}
+.pile .pile-count{position:absolute;bottom:-24px;left:0;right:0;text-align:center;color:var(--muted);font-size:12px}
+
+.card{width:120px;height:160px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:40px;box-shadow:0 8px 20px rgba(0,0,0,.35);border:4px solid rgba(255,255,255,.2)}
+.card.placeholder{opacity:.6;border-style:dashed}
+.card.red{background:var(--red)}
+.card.yellow{background:var(--yellow);color:#000}
+.card.green{background:var(--green)}
+.card.blue{background:var(--blue)}
+.card.wild{background:conic-gradient(var(--red),var(--yellow),var(--green),var(--blue));color:#000;text-shadow:0 1px 0 #fff}
+
+.status{min-width:220px;background:var(--panel);padding:12px;border-radius:12px;display:flex;flex-direction:column;gap:6px}
+.status .message{color:#fff;min-height:20px}
+.status .stack{color:#ffd166}
+
+.scoreboard{background:var(--panel);padding:12px;border-radius:12px;min-width:220px;display:flex;flex-direction:column;gap:8px}
+.score-header{display:flex;justify-content:space-between}
+.score-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.score-list li{display:flex;justify-content:space-between;background:rgba(255,255,255,.04);padding:6px 8px;border-radius:8px}
+.score-actions{display:flex;justify-content:flex-end}
+.score-actions button{padding:6px 10px;border-radius:8px;border:0;background:#2d6cdf;color:#fff;cursor:pointer}
+
+.hand{background:rgba(0,0,0,.25);border-radius:12px;padding:12px}
+.hand h2{margin:6px 0 10px 0;font-size:16px}
+.hand-cards{display:flex;gap:8px;flex-wrap:wrap}
+.actions{margin-top:8px;display:flex;gap:8px}
+.actions button{padding:8px 12px;border-radius:8px;border:0;background:#2d6cdf;color:#fff;cursor:pointer}
+.actions .secondary{background:#3b3f58}
+
+.card.small{width:48px;height:64px;border-width:2px;font-size:18px}
+.card.selectable{outline:3px solid #fff;cursor:pointer}
+.card.disabled{filter:grayscale(1) brightness(.7);opacity:.6;cursor:not-allowed}
+
+/* dialog */
+#colorDialog{border:0;border-radius:12px;padding:16px;background:#162447;color:var(--text)}
+.color-choices{display:flex;gap:8px}
+.chip{padding:8px 10px;border-radius:999px;border:0;color:#fff;cursor:pointer}
+.chip.red{background:var(--red)}
+.chip.yellow{background:var(--yellow);color:#000}
+.chip.green{background:var(--green)}
+.chip.blue{background:var(--blue)}
+
+/* settings dialog */
+#settingsDialog{border:0;border-radius:12px;padding:16px;background:#162447;color:var(--text);min-width:320px}
+.settings-form h3{margin:0 0 8px 0}
+.settings-form fieldset{border:1px solid #324264;border-radius:8px;margin:8px 0;padding:8px 10px}
+.settings-form legend{color:var(--muted)}
+.settings-form label{display:flex;align-items:center;gap:8px;margin:6px 0}
+.settings-form menu{display:flex;justify-content:flex-end;margin-top:8px}
+.settings-form button{padding:6px 10px;border-radius:8px;border:0;background:#3b3f58;color:#fff}
+
+/* animations */
+@keyframes pop {
+  0% { transform: scale(.9); opacity:.5 }
+  100% { transform: scale(1); opacity:1 }
+}
+@keyframes slide-up {
+  0% { transform: translateY(10px); opacity:.0 }
+  100% { transform: translateY(0); opacity:1 }
+}
+.animate-pop { animation: pop .18s ease-out }
+.animate-slide-up { animation: slide-up .2s ease-out }
+
+.glow{
+  box-shadow:0 0 0 3px rgba(255,255,255,.7), 0 0 16px 4px rgba(45,108,223,.6);
+}
+
+/* fly effects */
+.fly{position:fixed;pointer-events:none;z-index:1000;transition:transform .35s ease, opacity .35s ease}
+.fade-out{opacity:0}

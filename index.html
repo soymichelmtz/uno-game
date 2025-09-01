@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UNO - Juego (JS)</title>
+  <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="%23e74c3c"/><stop offset="0.33" stop-color="%23f1c40f"/><stop offset="0.66" stop-color="%2327ae60"/><stop offset="1" stop-color="%233498db"/></linearGradient></defs><rect rx="12" ry="12" width="64" height="64" fill="url(%23g)"/><text x="50%" y="55%" font-size="36" font-family="Segoe UI,Arial,sans-serif" font-weight="700" text-anchor="middle" fill="white">U</text></svg>' />
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1>UNO (versión simple)</h1>
+    <div class="controls">
+      <label>
+        Jugadores:
+        <input id="playersCount" type="number" min="2" max="8" value="4" />
+      </label>
+  <button id="startBtn">Iniciar partida</button>
+  <button id="settingsBtn" title="Reglas avanzadas y opciones">⚙️ Opciones</button>
+  <button id="themeBtn" title="Cambiar tema">🌓 Tema</button>
+      <span class="hint">Jugador 1 = Humano, resto = bots</span>
+    </div>
+  </header>
+
+  <main class="table">
+    <section class="opponents" id="opponents"></section>
+
+    <section class="center">
+      <div class="pile draw" id="drawPile" title="Mazo para robar">
+        <div class="card back">UNO</div>
+        <div class="pile-count" id="drawCount">0</div>
+      </div>
+      <div class="pile discard" id="discardPile" title="Pila de descarte">
+        <div class="card placeholder">—</div>
+        <div class="pile-count" id="discardCount">0</div>
+      </div>
+      <div class="status">
+        <div>Turno: <span id="turnLabel">—</span></div>
+        <div>Dirección: <span id="dirLabel">↻</span></div>
+        <div id="stackLabel" class="stack">Acumulado: 0</div>
+        <div id="message" class="message"></div>
+      </div>
+      <aside class="scoreboard" id="scoreboard">
+        <div class="score-header">
+          <strong>Marcador</strong>
+          <span>Ronda: <span id="roundLabel">0</span></span>
+        </div>
+        <ul id="scoreList" class="score-list"></ul>
+        <div class="score-actions">
+          <button id="nextRoundBtn" disabled>Nueva ronda</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="hand" id="humanArea">
+      <h2>Tu mano</h2>
+      <div class="hand-cards" id="humanHand"></div>
+      <div class="actions">
+        <button id="drawBtn">Robar</button>
+        <button id="passBtn">Pasar</button>
+        <button id="unoBtn" class="secondary" title="Declarar UNO" disabled>¡UNO!</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Diálogo de opciones y reglas avanzadas -->
+  <dialog id="settingsDialog">
+    <form method="dialog" class="settings-form">
+      <h3>Opciones y reglas avanzadas</h3>
+      <fieldset>
+        <legend>General</legend>
+        <label><input type="checkbox" id="optSound" checked /> Sonido</label>
+        <label><input type="checkbox" id="optAnimations" checked /> Animaciones</label>
+      </fieldset>
+      <fieldset>
+        <legend>Reglas</legend>
+        <label><input type="checkbox" id="optAutoPlayDrawn" checked /> Auto-jugar carta robada si es válida</label>
+        <label><input type="checkbox" id="optMixStacking" checked /> Permitir apilar +2 y +4 mezclados</label>
+        <label><input type="checkbox" id="optUnoRequired" /> UNO obligatorio (penaliza +2 si no declaras)</label>
+      </fieldset>
+      <menu>
+        <button value="cancel">Cerrar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <!-- Diálogo para elegir color tras comodín (+4) -->
+  <dialog id="colorDialog">
+    <form method="dialog">
+      <p>Elige un color:</p>
+      <div class="color-choices">
+        <button value="red" class="chip red">Rojo</button>
+        <button value="yellow" class="chip yellow">Amarillo</button>
+        <button value="green" class="chip green">Verde</button>
+        <button value="blue" class="chip blue">Azul</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="app-footer">
+    <small>Hecho con JavaScript. Reglas simplificadas inspiradas en UNO.</small>
+  </footer>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
