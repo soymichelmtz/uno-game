@@ -152,6 +152,7 @@ const C = {
 	autoPlayDrawn: true,
 	mixStacking: true,
 	unoRequired: false,
+	showHints: false, // NO sugerir cartas jugables por defecto
 };
 
 // Sonidos simples vía WebAudio
@@ -217,6 +218,7 @@ const refs = {
 	optAutoPlayDrawn: document.getElementById("optAutoPlayDrawn"),
 	optMixStacking: document.getElementById("optMixStacking"),
 	optUnoRequired: document.getElementById("optUnoRequired"),
+		optShowHints: document.getElementById("optShowHints"),
 	unoBtn: document.getElementById("unoBtn"),
 	themeBtn: document.getElementById("themeBtn"),
 	roundLabel: document.getElementById("roundLabel"),
@@ -349,10 +351,18 @@ function onHumanPlay(index) {
 	if (!G.running || G.players[G.currentPlayer] !== "Tú") return;
 	const top = G.discardPile[G.discardPile.length - 1];
 	const card = G.hands[0][index];
-	if (!canPlayOn(card, top, G.forcedColor)) return;
+	if (!canPlayOn(card, top, G.forcedColor)) {
+		setMessage("No puedes jugar esa carta");
+		if (C.sound) S.play('error');
+		return;
+	}
 
 	// Manejo de acumulación: si hay stackDraw>0, sólo se puede jugar +2 o +4
-	if (G.stackDraw > 0 && !canPlayConsideringStack(card)) return;
+	if (G.stackDraw > 0 && !canPlayConsideringStack(card)) {
+		setMessage("Debes responder con +2 o +4");
+		if (C.sound) S.play('error');
+		return;
+	}
 
 	const startEl = refs.humanHand.children[index];
 	const startRect = startEl?.getBoundingClientRect();
@@ -540,15 +550,21 @@ function renderAll() {
 	for (let i = 0; i < hand.length; i++) {
 		const c = hand[i];
 		const el = makeCardEl(c);
-		const playable = G.running && G.players[G.currentPlayer] === "Tú" && (top ? canPlayOn(c, top, G.forcedColor) : true);
-		// Si hay acumulación activa, sólo +2 o +4 son jugables
-		const playableWithStack = G.stackDraw > 0 ? canPlayConsideringStack(c) : playable;
-		el.classList.toggle("selectable", playableWithStack);
-		if (playableWithStack) {
-			el.addEventListener("click", () => onHumanPlay(i));
-		} else {
-			el.classList.add("disabled");
-		}
+			const playable = G.running && G.players[G.currentPlayer] === "Tú" && (top ? canPlayOn(c, top, G.forcedColor) : true);
+			// Si hay acumulación activa, sólo +2 o +4 son jugables
+			const playableWithStack = G.stackDraw > 0 ? canPlayConsideringStack(c) : playable;
+
+			if (C.showHints) {
+				el.classList.toggle("selectable", playableWithStack);
+				if (playableWithStack) {
+					el.addEventListener("click", () => onHumanPlay(i));
+				} else {
+					el.classList.add("disabled");
+				}
+			} else {
+				// Sin sugerencias: todas las cartas son clicables; si no es válida, se muestra error.
+				el.addEventListener("click", () => onHumanPlay(i));
+			}
 		refs.humanHand.appendChild(el);
 	}
 	// anim de carta robada
@@ -631,6 +647,7 @@ function onOpenSettings() {
 	refs.optAutoPlayDrawn.checked = !!C.autoPlayDrawn;
 	refs.optMixStacking.checked = !!C.mixStacking;
 	refs.optUnoRequired.checked = !!C.unoRequired;
+	if (refs.optShowHints) refs.optShowHints.checked = !!C.showHints;
 	try { refs.settingsDialog.showModal(); } catch {}
 }
 
@@ -643,6 +660,7 @@ function onSettingsClose() {
 	C.autoPlayDrawn = !!refs.optAutoPlayDrawn.checked;
 	C.mixStacking = !!refs.optMixStacking.checked;
 	C.unoRequired = !!refs.optUnoRequired.checked;
+		if (refs.optShowHints) C.showHints = !!refs.optShowHints.checked;
 	renderAll();
 }
 

@@ -11,6 +11,17 @@
 				"$eslint-stylish"
 			],
 			"group": "build"
+		},
+		{
+			"label": "serve-uno",
+			"type": "shell",
+			"command": "npx serve .",
+			"args": [],
+			"isBackground": true,
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
 		}
 	]
 }
