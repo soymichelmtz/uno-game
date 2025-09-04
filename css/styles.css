@@ -96,6 +96,15 @@ body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:
 .settings-form menu{display:flex;justify-content:flex-end;margin-top:8px}
 .settings-form button{padding:6px 10px;border-radius:8px;border:0;background:#3b3f58;color:#fff}
 
+/* help dialog */
+#helpDialog{border:0;border-radius:12px;padding:16px;background:#162447;color:var(--text);max-width:560px;width:min(96vw, 560px)}
+.help-form h3{margin:0 0 8px 0}
+.help-list{margin:8px 0 12px 18px;padding:0}
+.help-list li{margin:6px 0;line-height:1.35}
+.help-opt{display:flex;align-items:center;gap:8px;margin:8px 0}
+.help-form menu{display:flex;justify-content:flex-end;margin-top:8px}
+.help-form button{padding:6px 10px;border-radius:8px;border:0;background:#3b3f58;color:#fff}
+
 /* animations */
 @keyframes pop {
   0% { transform: scale(.9); opacity:.5 }
@@ -132,6 +141,7 @@ body{margin:0;font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:
   .status{ flex: 1 1 100% }
   .center{ justify-content:space-around }
   #settingsDialog{ min-width:unset; width:96vw }
+  #helpDialog{ width:96vw }
 }
 
 @media (max-width: 520px){

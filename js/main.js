@@ -213,12 +213,10 @@ const refs = {
 	stackLabel: document.getElementById("stackLabel"),
 	settingsBtn: document.getElementById("settingsBtn"),
 	settingsDialog: document.getElementById("settingsDialog"),
-	optSound: document.getElementById("optSound"),
-	optAnimations: document.getElementById("optAnimations"),
-	optAutoPlayDrawn: document.getElementById("optAutoPlayDrawn"),
-	optMixStacking: document.getElementById("optMixStacking"),
-	optUnoRequired: document.getElementById("optUnoRequired"),
-		optShowHints: document.getElementById("optShowHints"),
+	// add help dialog refs
+	helpBtn: document.getElementById("helpBtn"),
+	helpDialog: document.getElementById("helpDialog"),
+	helpDontShow: document.getElementById("helpDontShow"),
 	unoBtn: document.getElementById("unoBtn"),
 	themeBtn: document.getElementById("themeBtn"),
 	roundLabel: document.getElementById("roundLabel"),
@@ -232,6 +230,28 @@ refs.drawBtn.addEventListener("click", onHumanDraw);
 refs.passBtn.addEventListener("click", onHumanPass);
 refs.settingsBtn?.addEventListener("click", onOpenSettings);
 refs.settingsDialog?.addEventListener("close", onSettingsClose);
+// help events
+refs.helpBtn?.addEventListener('click', () => {
+  try { refs.helpDialog?.showModal(); } catch {}
+});
+
+const HELP_KEY = 'uno_help_dismissed';
+(function showHelpOnFirstLoad(){
+  try {
+    const dismissed = localStorage.getItem(HELP_KEY) === '1';
+    if (!dismissed && refs.helpDialog) {
+      refs.helpDontShow && (refs.helpDontShow.checked = false);
+      try { refs.helpDialog.showModal(); } catch {}
+    }
+  } catch {}
+})();
+
+refs.helpDialog?.addEventListener('close', () => {
+  try {
+    if (refs.helpDontShow?.checked) localStorage.setItem(HELP_KEY, '1');
+  } catch {}
+});
+
 refs.unoBtn?.addEventListener("click", () => {
 	if (G.players[G.currentPlayer] !== "Tú") return;
 	if (!C.unoRequired) return;

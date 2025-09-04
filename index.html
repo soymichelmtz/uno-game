@@ -18,6 +18,7 @@
         <button id="startBtn">Iniciar partida</button>
         <button id="settingsBtn" title="Reglas avanzadas y opciones">⚙️ Opciones</button>
         <button id="themeBtn" title="Cambiar tema">🌓 Tema</button>
+  <button id="helpBtn" title="Instrucciones">❓ Ayuda</button>
         <span class="hint">Jugador 1 = Humano, resto = bots</span>
       </div>
     </header>
@@ -81,6 +82,26 @@
       </fieldset>
       <menu>
         <button value="cancel">Cerrar</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <!-- Diálogo de ayuda / instrucciones -->
+  <dialog id="helpDialog">
+    <form method="dialog" class="help-form">
+      <h3>Cómo jugar</h3>
+      <ul class="help-list">
+        <li>En tu turno, juega una carta que coincida en color o número con la carta superior del descarte.</li>
+        <li>También puedes jugar una carta especial: +2, +4 (comodín), invertir (↻) o bloquear (⛔).</li>
+        <li>Si no puedes jugar, pulsa <strong>Robar</strong>. Si sigues sin poder, pulsa <strong>Pasar</strong>.</li>
+        <li>Acumulación: si hay un acumulado (+2/+4) debes responder con otra carta +2/+4 compatible o <strong>robar</strong> todo el acumulado.</li>
+        <li>Comodín +4: al jugarlo, elige color; ese color queda forzado para la siguiente jugada.</li>
+        <li>UNO (opcional): si está activado, cuando te quede 1 carta debes pulsar <strong>¡UNO!</strong> o recibirás +2.</li>
+        <li>Pistas: si están desactivadas, puedes tocar cualquier carta; si no es válida, se mostrará el motivo.</li>
+      </ul>
+      <label class="help-opt"><input type="checkbox" id="helpDontShow" /> No mostrar de nuevo</label>
+      <menu>
+        <button id="helpCloseBtn" value="close">Entendido</button>
       </menu>
     </form>
   </dialog>
