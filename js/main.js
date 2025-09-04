@@ -352,14 +352,14 @@ function onHumanPlay(index) {
 	const top = G.discardPile[G.discardPile.length - 1];
 	const card = G.hands[0][index];
 	if (!canPlayOn(card, top, G.forcedColor)) {
-		setMessage("No puedes jugar esa carta");
+		setMessage(explainInvalidPlay(card, top));
 		if (C.sound) S.play('error');
 		return;
 	}
 
 	// Manejo de acumulación: si hay stackDraw>0, sólo se puede jugar +2 o +4
 	if (G.stackDraw > 0 && !canPlayConsideringStack(card)) {
-		setMessage("Debes responder con +2 o +4");
+		setMessage(explainInvalidPlay(card, top));
 		if (C.sound) S.play('error');
 		return;
 	}
@@ -737,6 +737,49 @@ function getCardLabelInfo(card) {
 	const baseClass = card.type === TYPES.PLUS4 ? 'wild' : card.color;
 	return { label, className: `card ${baseClass} fly` };
 }
+	// Descripciones y explicación de jugada inválida
+	function colorToEs(color) {
+		return ({ red: 'Rojo', yellow: 'Amarillo', green: 'Verde', blue: 'Azul' })[color] || '';
+	}
+	function cardShortLabel(card) {
+		switch (card.type) {
+			case TYPES.NUMBER: return card.value;
+			case TYPES.PLUS2: return '+2';
+			case TYPES.PLUS4: return '+4';
+			case TYPES.REVERSE: return 'Invertir';
+			case TYPES.SKIP: return 'Bloquear';
+		}
+		return '';
+	}
+	function describeTop(top) {
+		if (!top) return '';
+		const color = top.color ? colorToEs(top.color) : '';
+		const lbl = cardShortLabel(top);
+		if (top.type === TYPES.NUMBER) return `${lbl} ${color}`.trim();
+		return `${lbl}${color ? ' ' + color : ''}`.trim();
+	}
+	function explainInvalidPlay(card, top) {
+		// Prioridad: acumulación activa
+		if (G.stackDraw > 0) {
+			if (!(card.type === TYPES.PLUS2 || card.type === TYPES.PLUS4)) {
+				return `Acumulado de ${G.stackDraw}: debes responder con +2 o +4.`;
+			}
+			if (!C.mixStacking && card.type !== G.stackType) {
+				const req = G.stackType === TYPES.PLUS2 ? '+2' : '+4';
+				return `Acumulado de ${G.stackDraw}: responde con ${req}.`;
+			}
+		}
+		// Color forzado por +4
+		if (G.forcedColor && !(card.type === TYPES.PLUS4) && card.color !== G.forcedColor) {
+			return `Color forzado: ${colorToEs(G.forcedColor)}. Juega ese color o +4.`;
+		}
+		// Coincidencia básica
+		const topDesc = describeTop(top);
+		if (top?.type === TYPES.NUMBER) {
+			return `Debe coincidir color o número (arriba: ${topDesc}).`;
+		}
+		return `Debe coincidir color o tipo especial (arriba: ${topDesc}).`;
+	}
 function flyCard(labelInfo, startRect, endRect) {
 	if (!startRect || !endRect) return;
 	const el = document.createElement('div');
