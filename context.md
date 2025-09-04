@@ -1,6 +1,6 @@
 # Contexto de la conversación y del proyecto
 
-Fecha: 2025-09-01
+Fecha: 2025-09-04
 
 ## Resumen de objetivos
 - Construir un juego tipo UNO con interfaz gráfica en JavaScript.
@@ -27,9 +27,14 @@ Fecha: 2025-09-01
    - `js/main.js` (contenido migrado desde `src/main.js`)
    - `images/` carpeta preparada
    - `index.html` actualizado para usar las nuevas rutas
+   7. UX móvil y ayudas:
+      - Diseño responsive: tamaños de cartas/pilas fluidos, header fijo, mano con scroll horizontal, objetivos táctiles más grandes.
+      - Eliminación de scroll horizontal a nivel de página en móvil; contenedores ajustados a 100vw.
+      - Modal “Ayuda” (❓) con instrucciones y casilla “No mostrar de nuevo” (persistencia en localStorage); botón en header y auto-aparece al primer acceso.
+      - Opción para ocultar pistas de cartas jugables por defecto y mensajes claros de por qué una carta no es válida.
 
 ## Estado actual
-- Juego funcional servido localmente (ejemplo reciente: http://localhost:59100).
+- Juego funcional servido localmente (ejemplo reciente: http://localhost:3000).
 - `js/main.js` contiene toda la lógica del juego.
 - `css/styles.css` contiene los estilos, temas y animaciones.
 - `src/main.js` se dejó como archivo de referencia con una nota de “Código movido a js/main.js”. Puede eliminarse si se desea.
@@ -40,6 +45,7 @@ Fecha: 2025-09-01
 - Añadir pruebas unitarias mínimas a lógica pura (por ejemplo, validación de reglas de jugadas y acumulación).
 - Añadir assets a `images/` si se quieren ilustraciones/íconos.
 - Publicar en GitHub Pages para compartir el juego fácilmente.
+ - Mostrar el modal de ayuda opcionalmente al inicio de cada nueva ronda (configurable).
 
 ## Notas de ejecución
 - Para desarrollo, se recomienda un servidor estático (ej. `npx serve .`).
