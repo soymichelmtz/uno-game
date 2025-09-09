@@ -215,6 +215,11 @@ const refs = {
 	stackLabel: document.getElementById("stackLabel"),
 	settingsBtn: document.getElementById("settingsBtn"),
 	settingsDialog: document.getElementById("settingsDialog"),
+	optSound: document.getElementById("optSound"),
+	optAnimations: document.getElementById("optAnimations"),
+	optAutoPlayDrawn: document.getElementById("optAutoPlayDrawn"),
+	optMixStacking: document.getElementById("optMixStacking"),
+	optUnoRequired: document.getElementById("optUnoRequired"),
 	// add help dialog refs
 	helpBtn: document.getElementById("helpBtn"),
 	helpDialog: document.getElementById("helpDialog"),
