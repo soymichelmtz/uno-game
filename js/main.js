@@ -225,6 +225,7 @@ const refs = {
 	scoreList: document.getElementById("scoreList"),
 	nextRoundBtn: document.getElementById("nextRoundBtn"),
 	scoreboard: document.getElementById("scoreboard"),
+ 	optShowHints: document.getElementById("optShowHints"),
 	optAllowPlus2: document.getElementById("optAllowPlus2"),
 	optAllowPlus4: document.getElementById("optAllowPlus4"),
 };
