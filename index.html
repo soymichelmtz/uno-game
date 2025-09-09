@@ -27,7 +27,7 @@
     <section class="opponents" id="opponents"></section>
 
     <section class="center">
-      <div class="pile draw" id="drawPile" title="Mazo para robar">
+  <div class="pile draw" id="drawPile" title="Mazo para comer">
         <div class="card back">UNO</div>
         <div class="pile-count" id="drawCount">0</div>
       </div>
@@ -57,7 +57,7 @@
       <h2>Tu mano</h2>
       <div class="hand-cards" id="humanHand"></div>
       <div class="actions">
-        <button id="drawBtn">Robar</button>
+  <button id="drawBtn">Comer</button>
         <button id="passBtn">Pasar</button>
         <button id="unoBtn" class="secondary" title="Declarar UNO" disabled>¡UNO!</button>
       </div>
@@ -75,7 +75,7 @@
       </fieldset>
       <fieldset>
         <legend>Reglas</legend>
-        <label><input type="checkbox" id="optAutoPlayDrawn" checked /> Auto-jugar carta robada si es válida</label>
+  <label><input type="checkbox" id="optAutoPlayDrawn" checked /> Auto-jugar carta comida si es válida</label>
         <label><input type="checkbox" id="optMixStacking" checked /> Permitir apilar +2 y +4 mezclados</label>
         <label><input type="checkbox" id="optUnoRequired" /> UNO obligatorio (penaliza +2 si no declaras)</label>
   <label><input type="checkbox" id="optShowHints" /> Mostrar sugerencias de cartas jugables</label>
@@ -95,8 +95,8 @@
       <ul class="help-list">
         <li>En tu turno, juega una carta que coincida en color o número con la carta superior del descarte.</li>
         <li>También puedes jugar una carta especial: +2, +4 (comodín), invertir (↻) o bloquear (⛔).</li>
-        <li>Si no puedes jugar, pulsa <strong>Robar</strong>. Si sigues sin poder, pulsa <strong>Pasar</strong>.</li>
-        <li>Acumulación: si hay un acumulado (+2/+4) debes responder con otra carta +2/+4 compatible o <strong>robar</strong> todo el acumulado.</li>
+  <li>Si no puedes jugar, pulsa <strong>Comer</strong>. Si sigues sin poder, pulsa <strong>Pasar</strong>.</li>
+  <li>Acumulación: si hay un acumulado (+2/+4) debes responder con otra carta +2/+4 compatible o <strong>comer</strong> todo el acumulado.</li>
         <li>Comodín +4: al jugarlo, elige color; ese color queda forzado para la siguiente jugada.</li>
         <li>UNO (opcional): si está activado, cuando te quede 1 carta debes pulsar <strong>¡UNO!</strong> o recibirás +2.</li>
         <li>Pistas: si están desactivadas, puedes tocar cualquier carta; si no es válida, se mostrará el motivo.</li>

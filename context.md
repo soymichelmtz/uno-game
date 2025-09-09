@@ -5,7 +5,7 @@ Fecha: 2025-09-04
 ## Resumen de objetivos
 - Construir un juego tipo UNO con interfaz gráfica en JavaScript.
 - Soportar colores (Rojo, Azul, Verde, Amarillo), números 0–9 y cartas especiales (+2, +4, invertir, bloquear).
-- Cualquier número de jugadores (UI 2–8), mazo para robar, juego por turnos.
+- Cualquier número de jugadores (UI 2–8), mazo para comer, juego por turnos.
 - Agregar sonidos, animaciones y opciones de reglas avanzadas.
 - Agregar marcador de rondas y tema claro/oscuro.
 - Reorganizar el proyecto en carpetas `/css`, `/js`, `/images`.
@@ -13,7 +13,7 @@ Fecha: 2025-09-04
 ## Hitos y cambios principales
 1. Implementación inicial: HTML/CSS/JS sin build, mazo, descarte, bots simples, turnos, UI para un jugador humano.
 2. Mejoras UX: sonidos WebAudio, animaciones (pop/slide y “vuelo” de cartas), diálogo de opciones con reglas avanzadas:
-   - Auto-jugar carta robada si es válida
+   - Auto-jugar carta comida si es válida
    - Apilar +2 y +4 mezclados (o por tipo)
    - UNO obligatorio (botón ¡UNO! y penalización si olvidas declararlo)
 3. Marcador de rondas y puntajes: suma puntos por cartas restantes de rivales; botón "Nueva ronda".

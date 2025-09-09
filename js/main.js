@@ -4,7 +4,7 @@
 // - Números: 0-9
 // - Especiales: +2, +4 (comodín), invertir, bloquear
 // - Cualquier cantidad de jugadores (2-8 en UI)
-// - Mazo para robar, juego por turnos, bots sencillos
+// - Mazo para comer, juego por turnos, bots sencillos
 
 const COLORS = ["red", "yellow", "green", "blue"]; // usamos english keys para CSS
 const NUMBERS = Array.from({ length: 10 }, (_, i) => String(i));
@@ -316,7 +316,7 @@ function onHumanDraw() {
 	if (G.stackDraw > 0) {
 		// debe comer acumulado y perder turno
 		drawCards(G, 0, G.stackDraw);
-		setMessage(`Has robado ${G.stackDraw}`);
+		setMessage(`Has comido ${G.stackDraw}`);
 		G.stackDraw = 0;
 		G.stackType = null;
 		G.forcedColor = null;

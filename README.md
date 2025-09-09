@@ -7,10 +7,10 @@ Juego de cartas tipo UNO con reglas simplificadas y una interfaz web sin depende
 - Colores: rojo, azul, verde, amarillo. Números: 0–9.
 - Especiales: +2, +4 (comodín con elección de color), invertir, bloquear.
 - 2–8 jugadores: tú + bots sencillos por turnos y dirección (↻/↺).
-- Mazo para robar y pila de descarte con recirculación automática.
+- Mazo para comer y pila de descarte con recirculación automática.
 - Opciones/Reglas avanzadas (botón ⚙️):
 	- Sonido y animaciones activables.
-	- Auto-jugar carta robada si es válida.
+	- Auto-jugar carta comida si es válida.
 	- Apilado mixto de +2 y +4 (opcional) o por tipo.
 	- UNO obligatorio: si no declaras y quedas con 1 carta, penaliza +2.
 - Botón ¡UNO! disponible cuando aplica la regla.
@@ -37,7 +37,7 @@ Luego visita la URL mostrada (ej. http://localhost:3000 o el puerto asignado).
 - Al cargar por primera vez verás un modal de ayuda con las reglas básicas (puedes reabrirlo con ❓ Ayuda o marcar “No mostrar de nuevo”).
 - Ajusta “Jugadores” y pulsa “Iniciar partida”.
 - Tus cartas aparecen abajo. Por defecto no se resaltan; si quieres pistas visuales, activa “Mostrar sugerencias de cartas jugables” en ⚙️ Opciones.
-- Botones: “Robar”, “Pasar”, “¡UNO!” (si la regla está activa).
+- Botones: “Comer”, “Pasar”, “¡UNO!” (si la regla está activa).
 - Tras un +4, elige color en el diálogo.
 
 ## Reglas (resumen)
