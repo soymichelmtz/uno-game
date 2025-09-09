@@ -25,12 +25,12 @@ function createDeck() {
 			deck.push({ color: c, type: TYPES.NUMBER, value: n });
 		}
 		// +2, reverse, skip (2 copias cada uno por color podría ser; usamos 1 para simple)
-		deck.push({ color: c, type: TYPES.PLUS2 });
+		if (C.allowPlus2) deck.push({ color: c, type: TYPES.PLUS2 });
 		deck.push({ color: c, type: TYPES.REVERSE });
 		deck.push({ color: c, type: TYPES.SKIP });
 	}
 	// Comodines +4 (4 copias en total)
-	for (let i = 0; i < 4; i++) deck.push({ color: null, type: TYPES.PLUS4 });
+	if (C.allowPlus4) for (let i = 0; i < 4; i++) deck.push({ color: null, type: TYPES.PLUS4 });
 	return shuffle(deck);
 }
 
@@ -153,6 +153,8 @@ const C = {
 	mixStacking: true,
 	unoRequired: false,
 	showHints: false, // NO sugerir cartas jugables por defecto
+	allowPlus2: true,
+	allowPlus4: true,
 };
 
 // Sonidos simples vía WebAudio
@@ -223,6 +225,8 @@ const refs = {
 	scoreList: document.getElementById("scoreList"),
 	nextRoundBtn: document.getElementById("nextRoundBtn"),
 	scoreboard: document.getElementById("scoreboard"),
+	optAllowPlus2: document.getElementById("optAllowPlus2"),
+	optAllowPlus4: document.getElementById("optAllowPlus4"),
 };
 
 refs.startBtn.addEventListener("click", () => startGame(Number(refs.playersCount.value || 4)));
@@ -668,6 +672,8 @@ function onOpenSettings() {
 	refs.optMixStacking.checked = !!C.mixStacking;
 	refs.optUnoRequired.checked = !!C.unoRequired;
 	if (refs.optShowHints) refs.optShowHints.checked = !!C.showHints;
+	if (refs.optAllowPlus2) refs.optAllowPlus2.checked = !!C.allowPlus2;
+	if (refs.optAllowPlus4) refs.optAllowPlus4.checked = !!C.allowPlus4;
 	try { refs.settingsDialog.showModal(); } catch {}
 }
 
@@ -681,6 +687,8 @@ function onSettingsClose() {
 	C.mixStacking = !!refs.optMixStacking.checked;
 	C.unoRequired = !!refs.optUnoRequired.checked;
 		if (refs.optShowHints) C.showHints = !!refs.optShowHints.checked;
+		if (refs.optAllowPlus2) C.allowPlus2 = !!refs.optAllowPlus2.checked;
+		if (refs.optAllowPlus4) C.allowPlus4 = !!refs.optAllowPlus4.checked;
 	renderAll();
 }
 
