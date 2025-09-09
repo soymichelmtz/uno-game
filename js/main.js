@@ -672,14 +672,19 @@ function canPlayConsideringStack(card) {
 function onOpenSettings() {
 	// reflejar config en UI
 	if (!refs.settingsDialog) return;
-	refs.optSound.checked = !!C.sound;
-	refs.optAnimations.checked = !!C.animations;
-	refs.optAutoPlayDrawn.checked = !!C.autoPlayDrawn;
-	refs.optMixStacking.checked = !!C.mixStacking;
-	refs.optUnoRequired.checked = !!C.unoRequired;
-	if (refs.optShowHints) refs.optShowHints.checked = !!C.showHints;
-	if (refs.optAllowPlus2) refs.optAllowPlus2.checked = !!C.allowPlus2;
-	if (refs.optAllowPlus4) refs.optAllowPlus4.checked = !!C.allowPlus4;
+	// helper: ensure ref exists (query if missing)
+	const use = (id) => {
+		if (!refs[id]) refs[id] = document.getElementById(id);
+		return refs[id];
+	};
+	const elSound = use('optSound'); if (elSound) elSound.checked = !!C.sound;
+	const elAnim = use('optAnimations'); if (elAnim) elAnim.checked = !!C.animations;
+	const elAuto = use('optAutoPlayDrawn'); if (elAuto) elAuto.checked = !!C.autoPlayDrawn;
+	const elMix = use('optMixStacking'); if (elMix) elMix.checked = !!C.mixStacking;
+	const elUno = use('optUnoRequired'); if (elUno) elUno.checked = !!C.unoRequired;
+	const elHints = use('optShowHints'); if (elHints) elHints.checked = !!C.showHints;
+	const elP2 = use('optAllowPlus2'); if (elP2) elP2.checked = !!C.allowPlus2;
+	const elP4 = use('optAllowPlus4'); if (elP4) elP4.checked = !!C.allowPlus4;
 	try { refs.settingsDialog.showModal(); } catch {}
 }
 
@@ -687,14 +692,19 @@ function onSettingsClose() {
 	if (!refs.settingsDialog || refs.settingsDialog.returnValue === 'cancel') {
 		// recoger igualmente porque el botón cierra sin valores
 	}
-	C.sound = !!refs.optSound.checked;
-	C.animations = !!refs.optAnimations.checked;
-	C.autoPlayDrawn = !!refs.optAutoPlayDrawn.checked;
-	C.mixStacking = !!refs.optMixStacking.checked;
-	C.unoRequired = !!refs.optUnoRequired.checked;
-		if (refs.optShowHints) C.showHints = !!refs.optShowHints.checked;
-		if (refs.optAllowPlus2) C.allowPlus2 = !!refs.optAllowPlus2.checked;
-		if (refs.optAllowPlus4) C.allowPlus4 = !!refs.optAllowPlus4.checked;
+	const read = (id, fallback) => {
+		const el = refs[id] || document.getElementById(id);
+		if (el) { refs[id] = el; return !!el.checked; }
+		return fallback;
+	};
+	C.sound = read('optSound', C.sound);
+	C.animations = read('optAnimations', C.animations);
+	C.autoPlayDrawn = read('optAutoPlayDrawn', C.autoPlayDrawn);
+	C.mixStacking = read('optMixStacking', C.mixStacking);
+	C.unoRequired = read('optUnoRequired', C.unoRequired);
+	C.showHints = read('optShowHints', C.showHints);
+	C.allowPlus2 = read('optAllowPlus2', C.allowPlus2);
+	C.allowPlus4 = read('optAllowPlus4', C.allowPlusPlus4 ?? C.allowPlus4);
 	renderAll();
 }
 
